@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Historial de Transacciones</title>
+</head>
+<body>
+    <h1>Historial de Transacciones</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Cuenta Origen</th>
+                <th>Cuenta Destino</th>
+                <th>Monto</th>
+                <th>Fecha</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="transaccion : ${historial}">
+                <td th:text="${transaccion.cuentaOrigen}"></td>
+                <td th:text="${transaccion.cuentaDestino}"></td>
+                <td th:text="${transaccion.monto}"></td>
+                <td th:text="${transaccion.fecha}"></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

@@ -16,19 +16,30 @@ public class ConfigSeguridad {
 
     // Configuración del servicio de usuarios en memoria
     @Bean
-    public UserDetailsService userDetailsService(PasswordEncoder passwordEncoder) {
-        UserDetails cliente = User.withUsername("cliente")
-                .password(passwordEncoder.encode("cliente123"))
-                .roles("USUARIO")
-                .build();
+public UserDetailsService userDetailsService(PasswordEncoder passwordEncoder) {
+    UserDetails cliente1 = User.withUsername("cliente1")
+            .password(passwordEncoder.encode("cliente123"))
+            .roles("USUARIO")
+            .build();
 
-        UserDetails admin = User.withUsername("admin")
-                .password(passwordEncoder.encode("admin123"))
-                .roles("ADMINISTRADOR")
-                .build();
+    UserDetails cliente2 = User.withUsername("cliente2")
+            .password(passwordEncoder.encode("cliente456"))
+            .roles("USUARIO")
+            .build();
 
-        return new InMemoryUserDetailsManager(cliente, admin);
-    }
+    UserDetails cliente3 = User.withUsername("cliente3")
+            .password(passwordEncoder.encode("cliente789"))
+            .roles("USUARIO")
+            .build();
+
+    UserDetails admin = User.withUsername("admin")
+            .password(passwordEncoder.encode("admin123"))
+            .roles("ADMINISTRADOR")
+            .build();
+
+    return new InMemoryUserDetailsManager(cliente1, cliente2, cliente3, admin);
+}
+
 
     // Configuración del PasswordEncoder (BCrypt)
     @Bean

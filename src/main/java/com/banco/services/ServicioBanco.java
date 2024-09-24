@@ -1,6 +1,7 @@
 package com.banco.services;
 
 import com.banco.model.Cuenta;
+import com.banco.model.Transaccion;
 import com.banco.model.Usuario;
 import org.springframework.stereotype.Service;
 
@@ -13,11 +14,17 @@ public class ServicioBanco {
     private List<Usuario> usuarios = new ArrayList<>();
 
     public ServicioBanco() {
+        // Agregando usuarios
         usuarios.add(new Usuario("admin", "admin123", "ADMINISTRADOR"));
-        usuarios.add(new Usuario("cliente", "cliente123", "USUARIO"));
+        usuarios.add(new Usuario("cliente1", "cliente123", "USUARIO"));
+        usuarios.add(new Usuario("cliente2", "cliente456", "USUARIO"));
+        usuarios.add(new Usuario("cliente3", "cliente789", "USUARIO"));
 
-        cuentas.add(new Cuenta("111111", 1500.00, "cliente"));
-        cuentas.add(new Cuenta("222222", 3500.00, "admin"));
+        // Agregando cuentas
+        cuentas.add(new Cuenta("1234", 1500.00, "cliente1"));
+        cuentas.add(new Cuenta("12345", 3500.00, "admin"));
+        cuentas.add(new Cuenta("6789", 2500.00, "cliente2")); // Cuenta para el cliente 2
+        cuentas.add(new Cuenta("67890", 5000.00, "cliente3")); // Cuenta para el cliente 3
     }
 
     public List<Cuenta> obtenerTodasLasCuentas() {
@@ -31,18 +38,28 @@ public class ServicioBanco {
                        .orElse(null);
     }
 
-    public void realizarTransferencia(String cuentaOrigen, String cuentaDestino, double monto) {
-        Cuenta origen = cuentas.stream()
-                .filter(cuenta -> cuenta.getNumeroCuenta().equals(cuentaOrigen))
-                .findFirst().orElse(null);
+    public Usuario obtenerUsuarioPorNombre(String nombreUsuario) {
+        return usuarios.stream()
+                       .filter(usuario -> usuario.getNombreUsuario().equals(nombreUsuario))
+                       .findFirst()
+                       .orElse(null);
+    }
 
-        Cuenta destino = cuentas.stream()
-                .filter(cuenta -> cuenta.getNumeroCuenta().equals(cuentaDestino))
-                .findFirst().orElse(null);
+    public boolean transferir(String cuentaOrigen, String cuentaDestino, double monto) {
+        Cuenta origen = obtenerCuentaPorTitular(cuentaOrigen);
+        Cuenta destino = obtenerCuentaPorTitular(cuentaDestino);
 
-        if (origen != null && destino != null && origen.getSaldoDisponible() >= monto) {
-            origen.setSaldoDisponible(origen.getSaldoDisponible() - monto);
-            destino.setSaldoDisponible(destino.getSaldoDisponible() + monto);
+        if (origen == null || destino == null || origen.getSaldoDisponible() < monto) {
+            return false; // Transferencia no válida
         }
+
+        origen.setSaldoDisponible(origen.getSaldoDisponible() - monto);
+        destino.setSaldoDisponible(destino.getSaldoDisponible() + monto);
+
+        // Aquí puedes crear una nueva transacción si lo deseas
+        Transaccion transaccion = new Transaccion(cuentaOrigen, cuentaDestino, monto);
+        // Puedes guardar la transacción en una lista o base de datos si es necesario
+
+        return true; // Transferencia exitosa
     }
 }

@@ -4,7 +4,9 @@
     <title>Saldo</title>
 </head>
 <body>
-    <h1>Tu saldo disponible es: <span th:text="${saldoDisponible}"></span></h1>
+    <h1>Bienvenido, <span th:text="${titularCuenta}"></span></h1>
+    <h2>Tu saldo disponible es: <span th:text="${saldoDisponible}"></span></h2>
+    <a href="/usuario/transferir">Hacer una transferencia</a>
     <a href="/logout">Cerrar sesión</a>
 </body>
 </html>
