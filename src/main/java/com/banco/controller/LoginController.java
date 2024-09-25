@@ -9,7 +9,7 @@ public class LoginController {
 
     @GetMapping("/login")
     public String login() {
-        return "login"; // Retorna la vista de login
+        return "login"; 
     }
 
     @GetMapping("/default")

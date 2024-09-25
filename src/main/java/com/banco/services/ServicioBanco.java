@@ -50,16 +50,16 @@ public class ServicioBanco {
         Cuenta destino = obtenerCuentaPorTitular(cuentaDestino);
 
         if (origen == null || destino == null || origen.getSaldoDisponible() < monto) {
-            return false; // Transferencia no válida
+            return false; 
         }
 
         origen.setSaldoDisponible(origen.getSaldoDisponible() - monto);
         destino.setSaldoDisponible(destino.getSaldoDisponible() + monto);
 
-        // Aquí puedes crear una nueva transacción si lo deseas
+        
         Transaccion transaccion = new Transaccion(cuentaOrigen, cuentaDestino, monto);
-        // Puedes guardar la transacción en una lista o base de datos si es necesario
+        
 
-        return true; // Transferencia exitosa
+        return true; 
     }
 }

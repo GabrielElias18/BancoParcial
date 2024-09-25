@@ -11,7 +11,7 @@ public class Usuario {
         this.rolUsuario = rolUsuario;
     }
 
-    // Getters y Setters
+
     public String getNombreUsuario() {
         return nombreUsuario;
     }

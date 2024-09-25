@@ -15,7 +15,6 @@ public class Transaccion {
         this.fecha = LocalDateTime.now();
     }
 
-    // Getters y Setters
     public String getCuentaOrigen() {
         return cuentaOrigen;
     }

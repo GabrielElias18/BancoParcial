@@ -11,7 +11,7 @@ public class Cuenta {
         this.titularCuenta = titularCuenta;
     }
 
-    // Getters y Setters
+
     public String getNumeroCuenta() {
         return numeroCuenta;
     }
